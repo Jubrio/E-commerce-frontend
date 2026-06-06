@@ -487,7 +487,12 @@ function CatalogueContent() {
                 {filters.prix_min    && <FilterPill label={`Min ${filters.prix_min} €`} onRemove={() => { if (priceDebounceRef.current) clearTimeout(priceDebounceRef.current); setLocalMin(0); setFilterInternal(f => ({ ...f, prix_min: '' })); }} />}
                 {filters.prix_max    && <FilterPill label={`Max ${filters.prix_max} €`} onRemove={() => { if (priceDebounceRef.current) clearTimeout(priceDebounceRef.current); setLocalMax(prixMaxProduits); setFilterInternal(f => ({ ...f, prix_max: '' })); }} />}
                 {filters.promo === 'true' && <FilterPill label="Promotions" onRemove={() => updateFilter('promo', '')} />}
-                {filters.category_id && <FilterPill label={categories.find(c => String(c.id) === filters.category_id)?.nom || 'Catégorie'} onRemove={() => updateFilter('category_id', '')} />}
+                {filters.category_id && categories.length > 0 && (
+  <FilterPill 
+    label={categories.find(c => String(c.id) === filters.category_id)?.nom || ''}
+    onRemove={() => updateFilter('category_id', '')} 
+  />
+)}
                 {filters.marque_id   && <FilterPill label={marques.find(m => String(m.id) === filters.marque_id)?.nom || 'Marque'} onRemove={() => updateFilter('marque_id', '')} />}
               </motion.div>
             )}

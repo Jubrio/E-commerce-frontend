@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { motion } from 'framer-motion';
 import ProductCard from '@/components/produit/ProductCard';
 import { produitsAPI, categoriesAPI } from '@/lib/api';
+import { slugify } from '@/lib/slugify';
 
 // ── Variants d'animation ──────────────────────────────────────
 const fromLeft = {
@@ -150,7 +151,7 @@ export default function HomePage() {
             {categories.slice(0, 8).map(c => (
               <motion.div key={c.id} variants={staggerItem}>
                 <Link
-                  href={`/catalogue?category_id=${c.id}`}
+                  href={`/catalogue?category=${slugify(c.nom)}`}
                   className="flex-shrink-0 px-5 py-3 rounded-xl text-sm font-semibold border hover:opacity-80 transition-opacity text-center block"
                   style={{
                     backgroundColor: 'var(--bg-card)',

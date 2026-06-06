@@ -207,7 +207,6 @@ export default function RegisterPage() {
           <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text)' }}>Téléphone *</label>
           <PhoneInput value={phoneNumber} onChange={setPhoneNumber} countryCode="GF" required />
           <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
-            Format international : indicatif + numéro local (sans espaces)
           </p>
         </div>
 
