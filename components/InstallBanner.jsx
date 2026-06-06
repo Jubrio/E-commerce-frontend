@@ -68,7 +68,7 @@ export default function InstallBanner() {
       }}
     >
       <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
-        <img src="/Logo.png" alt="logo" style={{ width: 32, height: 32, borderRadius: 8 }} />
+        <img src="/logo.png" alt="logo" style={{ width: 32, height: 32, borderRadius: 8 }} />
         <div>
           <div style={{ fontWeight: 700, fontSize: 14 }}>Bazar Guyane</div>
           {isIOS ? (
