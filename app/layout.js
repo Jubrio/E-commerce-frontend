@@ -2,6 +2,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import ThemeProvider from '@/components/providers/ThemeProvider';
 import AuthProvider  from '@/components/providers/AuthProvider';
+import InstallBanner from '@/components/InstallBanner';
 
 const inter = Inter({ subsets: ['latin'], variable: '--font-geist-sans' });
 
@@ -41,6 +42,7 @@ export default function RootLayout({ children }) {
       <body className={inter.variable}>
         <ThemeProvider>
           <AuthProvider>
+            <InstallBanner />
             {children}
           </AuthProvider>
         </ThemeProvider>
