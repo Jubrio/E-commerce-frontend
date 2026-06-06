@@ -11,8 +11,8 @@ export const metadata = {
   description: 'La marketplace de la Guyane',
   manifest:    '/manifest.json',
   icons: {
-    icon:     '/Logo.png',
-    shortcut: '/Logo.png',
+    icon:     '/logo.png',
+    shortcut: '/logo.png',
     apple:    '/icons/icon-192x192.png',
   },
   appleWebApp: {
