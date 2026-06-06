@@ -12,7 +12,7 @@ export default function AuthLayout({ children }) {
           <div
             className=" rounded-lg flex items-center justify-center font-black text-white text-sm"
             style={{ background: 'var(--primary)' }}
-          ><img src="/Logo.png" alt="Bazar Guyane" className="h-8 w-auto rounded-lg" /></div>
+          ><img src="/logo.png" alt="Bazar Guyane" className="h-8 w-auto rounded-lg" /></div>
           <span className="font-black text-lg" style={{ color: 'var(--text)' }}>Bazar Guyane</span>
         </Link>
       </div>

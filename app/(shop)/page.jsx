@@ -256,7 +256,7 @@ export default function HomePage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6">
             <div className="flex justify-center md:justify-start">
-              <img src="/Logo.png" alt="Bazar de Guyane" className="max-w-xs h-auto" />
+              <img src="/logo.png" alt="Bazar de Guyane" className="max-w-xs h-auto" />
             </div>
             <div>
               <h3 className="text-xl font-black mb-3" style={{ color: 'var(--text)' }}>
