@@ -22,7 +22,6 @@ export default function MessagesContent() {
   const [loadingConv,   setLoadingConv]   = useState(true);
   const [loadingMsg,    setLoadingMsg]    = useState(false);
   const [sending,       setSending]       = useState(false);
-  // Mobile : 'list' | 'chat'
   const [mobileView,    setMobileView]    = useState('list');
 
   const messagesEndRef = useRef(null);
@@ -30,7 +29,6 @@ export default function MessagesContent() {
   const textareaRef    = useRef(null);
 
   useEffect(() => {
-    // ⬅️ Attendre la fin de l'hydratation avant toute décision
     if (!_hydrated) return;
 
     if (!isAuthenticated) {
@@ -109,19 +107,15 @@ export default function MessagesContent() {
   return (
     <div className="max-w-5xl mx-auto px-4 py-4 md:py-6">
       <h1 className="text-2xl font-black mb-4" style={{ color: 'var(--text)' }}>Messages</h1>
-
       <div
         className="flex rounded-2xl overflow-hidden"
         style={{
           border:          '1px solid var(--border)',
-          // Hauteur adaptée : mobile prend tout l'écran restant
           height:          'calc(100vh - 200px)',
           minHeight:       '400px',
           backgroundColor: 'var(--bg-card)',
         }}
       >
-        {/* ── Sidebar conversations ── */}
-        {/* Desktop : toujours visible. Mobile : visible seulement si mobileView='list' */}
         <div
           className={`flex-shrink-0 flex flex-col
             ${mobileView === 'list' ? 'flex' : 'hidden'}
@@ -184,9 +178,6 @@ export default function MessagesContent() {
             )}
           </div>
         </div>
-
-        {/* ── Zone messages ── */}
-        {/* Desktop : toujours visible. Mobile : visible seulement si mobileView='chat' */}
         <div
           className={`flex-1 flex-col min-w-0
             ${mobileView === 'chat' ? 'flex' : 'hidden'}
@@ -201,7 +192,6 @@ export default function MessagesContent() {
             </div>
           ) : (
             <>
-              {/* Header avec bouton retour sur mobile */}
               <div
                 className="px-4 py-3 flex items-center gap-3 flex-shrink-0"
                 style={{ borderBottom: '1px solid var(--border)' }}
@@ -262,8 +252,6 @@ export default function MessagesContent() {
                 )}
                 <div ref={messagesEndRef} />
               </div>
-
-              {/* Zone saisie — FIX responsive */}
               <form
                 onSubmit={handleSend}
                 className="px-3 py-3 flex items-end gap-2 flex-shrink-0"
@@ -283,7 +271,6 @@ export default function MessagesContent() {
                     borderColor:     'var(--border)',
                     maxHeight:       '100px',
                     minHeight:       '44px',
-                    // FIX mobile : empêche le zoom iOS
                     fontSize:        '16px',
                   }}
                   onFocus={e => e.target.style.borderColor = 'var(--primary)'}

@@ -18,7 +18,6 @@ export default function ImageUploader({ produitId, images = [], onImagesChange }
       const formData = new FormData();
       Array.from(files).forEach(f => formData.append('images', f));
 
-      // Première image = principale si aucune image existante
       if (images.length === 0) {
         formData.append('est_principale', 'true');
       }
@@ -48,11 +47,10 @@ export default function ImageUploader({ produitId, images = [], onImagesChange }
   const handleFileInput = (e) => uploadFiles(e.target.files);
 
   const handleSetPrincipale = async (imageId) => {
-    // Reset local
+
     const updated = images.map(img => ({ ...img, est_principale: img.id === imageId }));
     onImagesChange(updated);
 
-    // Sync API — mise à jour en base
     await fetch(`${API}/api/produits/${produitId}`, {
       method: 'PUT',
       headers: {

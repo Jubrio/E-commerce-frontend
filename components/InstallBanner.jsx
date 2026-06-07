@@ -8,17 +8,14 @@ export default function InstallBanner() {
   const [isInstalled, setIsInstalled]       = useState(false);
 
   useEffect(() => {
-    // Déjà installée ?
     if (window.matchMedia('(display-mode: standalone)').matches) {
       setIsInstalled(true);
       return;
     }
 
-    // iOS detection
     const ios = /iphone|ipad|ipod/.test(window.navigator.userAgent.toLowerCase());
     setIsIOS(ios);
 
-    // Déjà fermé par l'utilisateur ?
     const dismissed = localStorage.getItem('pwa_banner_dismissed');
     if (dismissed) return;
 
@@ -26,8 +23,7 @@ export default function InstallBanner() {
       setShowBanner(true);
       return;
     }
-
-    // Android / Chrome — écoute l'événement beforeinstallprompt
+    
     const handler = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);

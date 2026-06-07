@@ -21,7 +21,7 @@ export default function LivraisonsAdminPage() {
 
   const [commandes,  setCommandes]  = useState([]);
   const [loading,    setLoading]    = useState(true);
-  const [selected,   setSelected]   = useState(null);  // commande sélectionnée
+  const [selected,   setSelected]   = useState(null);  
   const [modalOpen,  setModalOpen]  = useState(false);
   const [form,       setForm]       = useState({ transporteur: '', numero_suivi: '', date_livraison_estimee: '' });
   const [saving,     setSaving]     = useState(false);
@@ -37,17 +37,15 @@ export default function LivraisonsAdminPage() {
       router.push('/');
       return;
     }
-    fetchCommandes(); // ✅ Correction : appel de fetchCommandes au lieu de fetchCategories
+    fetchCommandes(); 
   }, [_hydrated, isAuthenticated, isAdmin, router]);
 
   const fetchCommandes = async () => {
     setLoading(true);
     try {
-      // Récupère les commandes payées ou expédiées (pertinentes pour la livraison)
       const r    = await fetch(`${API}/api/commandes/all?limit=100`, { headers: auth() });
       const data = await r.json();
       const cmds = (data.data || []).filter(c => ['payee','expediee','livree'].includes(c.statut));
-      // Charger les infos livraison pour chacune
       const enriched = await Promise.all(
         cmds.map(async (c) => {
           try {

@@ -72,7 +72,7 @@ export default function RegisterPage() {
       });
       const data = await res.json();
       if (data.success) {
-        setSuccessMsg('✅ Compte vérifié avec succès ! Redirection...');
+        setSuccessMsg('✓ Compte vérifié avec succès ! Redirection...');
         setTimeout(() => router.push('/login?verified=1'), 1000);
       } else {
         setError(data.message || 'Code invalide ou expiré');
@@ -115,7 +115,6 @@ export default function RegisterPage() {
   };
   const inputClass = "w-full h-11 px-4 rounded-lg border text-sm focus:outline-none transition-colors";
 
-  // ── Étape vérification email ──────────────────────────────────
   if (step === 'verify') {
     return (
       <div className="w-full max-w-md rounded-2xl p-8 shadow-lg-theme"
@@ -165,7 +164,6 @@ export default function RegisterPage() {
     );
   }
 
-  // ── Formulaire inscription ────────────────────────────────────
   return (
     <div className="w-full max-w-lg rounded-2xl p-8 shadow-lg-theme"
       style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)' }}>
@@ -175,7 +173,6 @@ export default function RegisterPage() {
       </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
-        {/* Nom / Prénom */}
         <div className="grid grid-cols-2 gap-3">
           <div>
             <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text)' }}>Nom *</label>
@@ -192,8 +189,6 @@ export default function RegisterPage() {
               onBlur={e  => e.target.style.borderColor = 'var(--border)'} />
           </div>
         </div>
-
-        {/* Email */}
         <div>
           <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text)' }}>Email *</label>
           <input type="email" name="email" value={form.email} onChange={handleChange}
@@ -201,18 +196,13 @@ export default function RegisterPage() {
             onFocus={e => e.target.style.borderColor = 'var(--primary)'}
             onBlur={e  => e.target.style.borderColor = 'var(--border)'} />
         </div>
-
-        {/* Téléphone */}
         <div>
           <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text)' }}>Téléphone *</label>
           <PhoneInput value={phoneNumber} onChange={setPhoneNumber} countryCode="GF" required />
           <p className="text-xs mt-1" style={{ color: 'var(--text-muted)' }}>
           </p>
         </div>
-
-        {/* Mot de passe / Confirmation */}
         <div className="grid grid-cols-2 gap-3">
-          {/* Mot de passe */}
           <div>
             <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text)' }}>Mot de passe *</label>
             <div className="relative">
@@ -239,8 +229,6 @@ export default function RegisterPage() {
               </button>
             </div>
           </div>
-
-          {/* Confirmation */}
           <div>
             <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text)' }}>Confirmation *</label>
             <div className="relative">

@@ -15,15 +15,12 @@ export default function CommandeSuccesPage() {
       router.push('/commandes');
       return;
     }
-
-    // Optionnel : recharger la commande pour vérifier son statut
     const checkStatus = async () => {
       try {
         const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/commandes/${commandeId}`, {
           headers: { Authorization: `Bearer ${localStorage.getItem('guyagod_token')}` }
         });
         if (res.ok) {
-          // Commande trouvée
           setLoading(false);
         } else {
           setError('Commande introuvable');
@@ -49,10 +46,10 @@ export default function CommandeSuccesPage() {
   return (
     <div className="max-w-md mx-auto px-4 py-20 text-center">
       <div className="w-16 h-16 rounded-full flex items-center justify-center mx-auto mb-4" style={{ backgroundColor: '#dcfce7' }}>
-  <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="20 6 9 17 4 12" />
-  </svg>
-</div>
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#16a34a" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round">
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      </div>
       <h1 className="text-2xl font-black mb-2">Merci pour votre commande !</h1>
       <p className="text-sm text-gray-600 mb-6">
         Votre paiement a été validé. Vous recevrez un email de confirmation.

@@ -34,7 +34,7 @@ export default function PromotionsAdminPage() {
       router.push('/');
       return;
     }
-    loadAll(); // ✅ Correction : appel de loadAll au lieu de fetchCategories
+    loadAll(); 
   }, [_hydrated, isAuthenticated, isAdmin, router]);
 
   const loadAll = async () => {
@@ -94,7 +94,6 @@ export default function PromotionsAdminPage() {
   const inputStyle = { backgroundColor: 'var(--bg-input)', color: 'var(--text)', borderColor: 'var(--border)' };
   const inputClass = "w-full h-10 px-3 rounded-lg border text-sm focus:outline-none";
 
-  // Pendant l'hydratation, afficher un squelette
   if (!_hydrated) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8 space-y-4 animate-pulse">

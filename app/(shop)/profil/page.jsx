@@ -1,11 +1,11 @@
 'use client';
-// app/(shop)/profil/page.jsx — avec PhoneInput pour le téléphone
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
 import useAuthStore from '@/store/useAuthStore';
 import { adressesAPI } from '@/lib/api';
-import PhoneInput from '@/components/ui/PhoneInput'; // ← import du composant
+import PhoneInput from '@/components/ui/PhoneInput';
+import { Camera } from 'lucide-react';
 
 const API = process.env.NEXT_PUBLIC_API_URL;
 const TABS = ['Informations', 'Adresses', 'Sécurité'];
@@ -21,44 +21,36 @@ export default function ProfilPage() {
   const [infoForm, setInfoForm] = useState({ nom: '', prenom: '', telephone: '' });
   const [pwForm, setPwForm] = useState({ ancien: '', nouveau: '', confirm: '' });
   const [pwError, setPwError] = useState('');
-
-  // Photo de profil
   const [photoFile, setPhotoFile] = useState(null);
   const [photoPreview, setPhotoPreview] = useState('');
   const [uploadingPhoto, setUploadingPhoto] = useState(false);
+  
   const photoRef = useRef(null);
-
-  // Adresse
   const [newAdresse, setNewAdresse] = useState({
     libelle: '', adresse: '', ville: '', code_postal: '', pays: 'Guyane française', est_defaut: false,
   });
   const [showAddressForm, setShowAddressForm] = useState(false);
 
-  // Attendre l'hydratation
-  // Dans ProfilPage, après avoir récupéré user
-useEffect(() => {
-  if (!_hydrated) return;
-  if (!isAuthenticated) {
-    router.push('/login');
-    return;
-  }
-  if (user) {
-    console.log('Téléphone chargé :', user.telephone); // ← debug
-
-    let telephoneValue = user.telephone || '';
-    // Si le numéro existe mais ne commence pas par '+', on ajoute +594 (Guyane)
-    if (telephoneValue && !telephoneValue.startsWith('+')) {
-      telephoneValue = '+594' + telephoneValue;
+  useEffect(() => {
+    if (!_hydrated) return;
+    if (!isAuthenticated) {
+      router.push('/login');
+      return;
     }
-
-    setInfoForm({
-      nom: user.nom || '',
-      prenom: user.prenom || '',
-      telephone: telephoneValue,
-    });
-    setPhotoPreview(user.photo_profil || '');
-  }
-}, [_hydrated, isAuthenticated, user, router]);
+    if (user) {
+      console.log('Téléphone chargé :', user.telephone); 
+      let telephoneValue = user.telephone || '';
+      if (telephoneValue && !telephoneValue.startsWith('+')) {
+        telephoneValue = '+594' + telephoneValue;
+      }
+      setInfoForm({
+        nom: user.nom || '',
+        prenom: user.prenom || '',
+        telephone: telephoneValue,
+      });
+      setPhotoPreview(user.photo_profil || '');
+    }
+  }, [_hydrated, isAuthenticated, user, router]);
 
   useEffect(() => {
     if (!_hydrated) return;
@@ -72,7 +64,6 @@ useEffect(() => {
   }
   if (!isAuthenticated) return null;
 
-  // ── Upload photo (inchangé) ──
   const handlePhotoSelect = (e) => {
     const file = e.target.files[0];
     if (!file) return;
@@ -103,7 +94,6 @@ useEffect(() => {
     finally { setUploadingPhoto(false); }
   };
 
-  // ── Infos ──
   const handleInfoSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
@@ -123,7 +113,6 @@ useEffect(() => {
     finally { setLoading(false); }
   };
 
-  // ── Mot de passe (inchangé) ──
   const handlePasswordSubmit = async (e) => {
     e.preventDefault();
     setPwError('');
@@ -151,7 +140,6 @@ useEffect(() => {
     }
   };
 
-  // ── Adresses (inchangé) ──
   const handleAddAddress = async (e) => {
     e.preventDefault();
     try {
@@ -175,8 +163,6 @@ useEffect(() => {
   return (
     <div className="max-w-2xl mx-auto px-4 py-8">
       <h1 className="text-2xl font-black mb-6" style={{ color: 'var(--text)' }}>Mon profil</h1>
-
-      {/* ── Photo de profil (inchangé) ── */}
       <div
         className="flex items-center gap-5 p-5 rounded-xl mb-6"
         style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)' }}
@@ -198,7 +184,7 @@ useEffect(() => {
             style={{ backgroundColor: 'var(--primary)' }}
             title="Changer la photo"
           >
-            📷
+            <Camera size={13} />
           </button>
           <input ref={photoRef} type="file" accept="image/*" className="hidden" onChange={handlePhotoSelect} />
         </div>

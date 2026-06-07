@@ -1,6 +1,4 @@
 'use client';
-// app/(shop)/vendeur/produits/nouveau/page.jsx
-// Génération automatique du SKU (backend). Redirection admin → admin avec onglet Produits
 
 import { useState, useEffect, useRef } from 'react';
 import { useRouter } from 'next/navigation';
@@ -87,9 +85,8 @@ export default function NouveauProduitPage() {
         });
       }
       setUploadPct(100);
-      // Redirection selon le rôle
       if (isAdmin()) {
-        router.push('/admin?tab=2');   // onglet Produits (index 2)
+        router.push('/admin?tab=2');   
       } else {
         router.push(`/vendeur?created=${produit_id}`);
       }
@@ -175,11 +172,23 @@ export default function NouveauProduitPage() {
         </Section>
 
         <Section title="Informations générales">
-          <div><Label>Nom du produit *</Label><input name="nom" value={form.nom} onChange={handleChange} required placeholder="ex: Samsung Galaxy S24" className={inputClass} style={inputStyle} {...focus} /></div>
-          <div><Label>Description</Label><textarea name="description" value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} placeholder="Décrivez votre produit..." rows={4} className="w-full px-3 py-2 rounded-lg border text-sm focus:outline-none resize-none" style={inputStyle} {...focus} /></div>
+          <div>
+            <Label>Nom du produit *</Label>
+            <input name="nom" value={form.nom} onChange={handleChange} required placeholder="ex: Samsung Galaxy S24" className={inputClass} style={inputStyle} {...focus} />
+          </div>
+          <div>
+            <Label>Description</Label>
+            <textarea name="description" value={form.description} onChange={e => setForm(f => ({ ...f, description: e.target.value }))} placeholder="Décrivez votre produit..." rows={4} className="w-full px-3 py-2 rounded-lg border text-sm focus:outline-none resize-none" style={inputStyle} {...focus} />
+          </div>
           <div className="grid grid-cols-2 gap-3">
-            <div><Label>Prix (€) *</Label><input type="number" step="0.01" min="0" name="prix" value={form.prix} onChange={handleChange} required placeholder="0.00" className={inputClass} style={inputStyle} {...focus} /></div>
-            <div><Label>Stock</Label><input type="number" min="0" name="stock" value={form.stock} onChange={handleChange} placeholder="0" className={inputClass} style={inputStyle} {...focus} /></div>
+            <div>
+              <Label>Prix (€) *</Label>
+              <input type="number" step="0.01" min="0" name="prix" value={form.prix} onChange={handleChange} required placeholder="0.00" className={inputClass} style={inputStyle} {...focus} />
+            </div>
+            <div>
+              <Label>Stock</Label>
+              <input type="number" min="0" name="stock" value={form.stock} onChange={handleChange} placeholder="0" className={inputClass} style={inputStyle} {...focus} />
+            </div>
           </div>
           <div className="grid grid-cols-2 gap-3">
             <div><Label>État</Label><select name="etat" value={form.etat} onChange={handleChange} className={inputClass} style={inputStyle}><option value="neuf">Neuf</option><option value="occasion">Occasion</option><option value="reconditionne">Reconditionné</option></select></div>

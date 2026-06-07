@@ -1,4 +1,3 @@
-// store/useAuthStore.js — CORRIGÉ
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 

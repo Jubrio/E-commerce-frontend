@@ -1,5 +1,4 @@
 'use client';
-// app/(shop)/admin/categories/page.jsx — NOTIFICATIONS CORRIGÉES
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -49,7 +48,6 @@ export default function CategoriesAdminPage() {
     finally { setLoading(false); }
   };
 
-  // Notification temporaire
   const showNotification = (msg, isError = false) => {
     if (isError) setError(msg);
     else setSuccess(msg);
@@ -59,7 +57,6 @@ export default function CategoriesAdminPage() {
     }, 4000);
   };
 
-  // Auto-slug
   const handleNomChange = (val) => {
     const slug = val
       .toLowerCase()
@@ -87,7 +84,6 @@ export default function CategoriesAdminPage() {
   const handleCancel = () => {
     setEditId(null);
     setForm(emptyForm);
-    // Ne pas effacer les notifications ici
   };
 
   const handleSubmit = async (e) => {
@@ -116,11 +112,7 @@ export default function CategoriesAdminPage() {
       const data = await r.json();
 
       if (!data.success) throw new Error(data.message || 'Erreur serveur');
-
-      // Notification de succès
       showNotification(editId ? 'Catégorie modifiée avec succès' : 'Catégorie ajoutée avec succès');
-
-      // Réinitialiser le formulaire sans effacer les notifications
       setEditId(null);
       setForm(emptyForm);
       await fetchCategories();
@@ -176,12 +168,12 @@ export default function CategoriesAdminPage() {
 
         {success && (
           <p className="text-xs px-3 py-2 rounded-lg" style={{ backgroundColor: '#dcfce7', color: '#16a34a' }}>
-            ✅ {success}
+            ✓ {success}
           </p>
         )}
         {error && (
           <p className="text-xs px-3 py-2 rounded-lg" style={{ backgroundColor: '#fee2e2', color: '#dc2626' }}>
-            ❌ {error}
+            ✕ {error}
           </p>
         )}
 

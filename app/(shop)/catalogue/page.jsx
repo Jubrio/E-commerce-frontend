@@ -7,7 +7,7 @@ import { produitsAPI, categoriesAPI, marquesAPI } from '@/lib/api';
 import { slugify } from '@/lib/slugify';
 import useAuthStore from '@/store/useAuthStore';
 
-// ── Variants ─────────────────────────────────────────────────
+//---------------------------- Variants -------------------------------------
 const fromLeft = {
   hidden:  { opacity: 0, x: -50 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.5, ease: 'easeOut' } },
@@ -37,7 +37,6 @@ const TRIS = [
   { val: 'note',      label: 'Mieux notés' },
 ];
 
-// ─── Composants auxiliaires ──────────────────────────────────
 const FilterBlock = ({ title, children }) => (
   <div className="rounded-xl p-4" style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)' }}>
     <h3 className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>{title}</h3>
@@ -214,7 +213,7 @@ const SidebarContent = ({
   </motion.div>
 );
 
-// ─── Composant principal ─────────────────────────────────────
+// ---------------- Composant principal ----------------------------------
 function CatalogueContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
@@ -487,15 +486,7 @@ function CatalogueContent() {
                 {filters.prix_min    && <FilterPill label={`Min ${filters.prix_min} €`} onRemove={() => { if (priceDebounceRef.current) clearTimeout(priceDebounceRef.current); setLocalMin(0); setFilterInternal(f => ({ ...f, prix_min: '' })); }} />}
                 {filters.prix_max    && <FilterPill label={`Max ${filters.prix_max} €`} onRemove={() => { if (priceDebounceRef.current) clearTimeout(priceDebounceRef.current); setLocalMax(prixMaxProduits); setFilterInternal(f => ({ ...f, prix_max: '' })); }} />}
                 {filters.promo === 'true' && <FilterPill label="Promotions" onRemove={() => updateFilter('promo', '')} />}
-{filters.category_id && categories.length > 0 && (() => {
-  const cat = categories.find(c => String(c.id) === String(filters.category_id));
-  return cat ? (
-    <FilterPill 
-      label={cat.nom}
-      onRemove={() => updateFilter('category_id', '')} 
-    />
-  ) : null;
-})()}
+                {filters.category_id && categories.length > 0 && (() => {const cat = categories.find(c => String(c.id) === String(filters.category_id));return cat ? ( <FilterPill label={cat.nom}onRemove={ () => updateFilter('category_id', '')} />) : null; })()}
                 {filters.marque_id   && <FilterPill label={marques.find(m => String(m.id) === filters.marque_id)?.nom || 'Marque'} onRemove={() => updateFilter('marque_id', '')} />}
               </motion.div>
             )}

@@ -1,5 +1,4 @@
 'use client';
-// app/(shop)/produit/[id]/page.jsx — avec gestion _hydrated pour les actions
 
 import { useState, useEffect } from 'react';
 import { useParams, useRouter } from 'next/navigation';
@@ -47,7 +46,6 @@ export default function ProduitPage() {
   if (loading) return <PageSkeleton />;
   if (!produit) return null;
 
-  // === FIX : conversion explicite des prix en nombres ===
   const prixOriginal = Number(produit.prix) || 0;
   const pourcentagePromo = produit.promotion ? Number(produit.promotion.pourcentage) : 0;
 
@@ -82,68 +80,45 @@ export default function ProduitPage() {
       </nav>
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 mb-10">
-
-        {/* ── Galerie ── */}
-
-<div>
-  <div className="relative aspect-square rounded-2xl overflow-hidden mb-3 flex items-center justify-center"
-    style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)' }}>
-    {images[imgActive]?.image
-      ? <img src={images[imgActive].image} alt={produit.nom} className="w-full h-full object-contain p-6" />
-      : <span className="text-8xl">📦</span>
-    }
-    {produit.promotion && (
-      <span className="absolute top-4 left-4 text-sm font-bold px-3 py-1 rounded-full text-white"
-        style={{ backgroundColor: 'var(--primary)' }}>
-        -{Math.round(pourcentagePromo)}%
-      </span>
-    )}
-
-    {/* Flèches de navigation (si plus d'une image) */}
-    {/* Flèches de navigation (si plus d'une image) */}
-{images.length > 1 && (
-  <>
-    <button
-      onClick={() => setImgActive((imgActive - 1 + images.length) % images.length)}
-      className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center bg-black/40 backdrop-blur-sm text-white hover:bg-black/70 hover:scale-105 transition-all duration-200 z-10"
-      aria-label="Image précédente"
-    >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="15 18 9 12 15 6"/>
-      </svg>
-    </button>
-    <button
-      onClick={() => setImgActive((imgActive + 1) % images.length)}
-      className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center bg-black/40 backdrop-blur-sm text-white hover:bg-black/70 hover:scale-105 transition-all duration-200 z-10"
-      aria-label="Image suivante"
-    >
-      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-        <polyline points="9 18 15 12 9 6"/>
-      </svg>
-    </button>
-  </>
-)}
-  </div>
-
-  {/* Miniatures (inchangées) */}
-  {images.length > 1 && (
-    <div className="flex gap-2 overflow-x-auto pb-1">
-      {images.map((img, i) => (
-        <button key={i} onClick={() => setImgActive(i)}
-          className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all"
-          style={{ border: `2px solid ${i === imgActive ? 'var(--primary)' : 'var(--border)'}`, backgroundColor: 'var(--bg-card)' }}
-        >
-          {img.image ? (
-            <img src={img.image} alt="" className="w-full h-full object-contain p-1" />
-          ) : (
-            <span className="text-2xl flex items-center justify-center h-full">📦</span>
+      <div>
+        <div className="relative aspect-square rounded-2xl overflow-hidden mb-3 flex items-center justify-center"
+           style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)' }}>
+            {images[imgActive]?.image
+            ? <img src={images[imgActive].image} alt={produit.nom} className="w-full h-full object-contain p-6" />
+            : <span className="text-8xl">📦</span>}
+            {produit.promotion && (
+            <span className="absolute top-4 left-4 text-sm font-bold px-3 py-1 rounded-full text-white" style={{ backgroundColor: 'var(--primary)' }}>-{Math.round(pourcentagePromo)}%</span>)}
+            {images.length > 1 && (
+              <>
+                <button
+                  onClick={() => setImgActive((imgActive - 1 + images.length) % images.length)}
+                  className="absolute left-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center bg-black/40 backdrop-blur-sm text-white hover:bg-black/70 hover:scale-105 transition-all duration-200 z-10" aria-label="Image précédente">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6"/>
+                  </svg>
+                </button>
+                <button
+                  onClick={() => setImgActive((imgActive + 1) % images.length)}
+                  className="absolute right-3 top-1/2 -translate-y-1/2 w-10 h-10 rounded-full flex items-center justify-center bg-black/40 backdrop-blur-sm text-white hover:bg-black/70 hover:scale-105 transition-all duration-200 z-10" aria-label="Image suivante">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"/>
+                  </svg>
+                </button>
+              </>
+            )}
+          </div>
+          {images.length > 1 && (
+            <div className="flex gap-2 overflow-x-auto pb-1">
+              {images.map((img, i) => (
+                <button key={i} onClick={() => setImgActive(i)}
+                  className="flex-shrink-0 w-16 h-16 rounded-lg overflow-hidden transition-all" style={{ border: `2px solid ${i === imgActive ? 'var(--primary)' : 'var(--border)'}`, backgroundColor: 'var(--bg-card)' }}>
+                  {img.image ? (
+                  <img src={img.image} alt="" className="w-full h-full object-contain p-1" />) : ( <span className="text-2xl flex items-center justify-center h-full">📦</span>)}
+                </button>
+              ))}
+            </div>
           )}
-        </button>
-      ))}
-    </div>
-  )}
-</div>
-
+        </div>
         {/* ── Infos produit ── */}
         <div>
           {produit.marque && (

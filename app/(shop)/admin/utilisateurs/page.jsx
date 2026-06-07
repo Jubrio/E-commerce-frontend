@@ -1,7 +1,4 @@
 'use client';
-// app/(shop)/admin/utilisateurs/page.jsx — VERSION CORRIGÉE
-// Fix : data.data.rows → data.data (le backend retourne { data: { rows, total } })
-// Fix : chemin correct pour lire les utilisateurs
 
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
@@ -51,8 +48,6 @@ export default function UtilisateursAdminPage() {
     try {
       const r    = await fetch(`${API}/api/users?limit=200`, { headers: auth() });
       const data = await r.json();
-
-      // FIX : la réponse est { success, data: { rows, total } }
       const rows = data.data?.rows || data.data || [];
       const tot  = data.data?.total || rows.length;
 

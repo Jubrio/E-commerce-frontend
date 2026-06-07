@@ -31,7 +31,7 @@ export default function MarquesAdminPage() {
       router.push('/');
       return;
     }
-    fetchMarques(); // ✅ Correction : appel de fetchMarques au lieu de fetchCategories
+    fetchMarques(); 
   }, [_hydrated, isAuthenticated, isAdmin, router]);
 
   const fetchMarques = async () => {
@@ -111,7 +111,6 @@ export default function MarquesAdminPage() {
   const inputStyle = { backgroundColor: 'var(--bg-input)', color: 'var(--text)', borderColor: 'var(--border)' };
   const inputClass = "w-full h-10 px-3 rounded-lg border text-sm focus:outline-none";
 
-  // Pendant l'hydratation, on peut afficher un loader
   if (!_hydrated) {
     return (
       <div className="max-w-4xl mx-auto px-4 py-8 space-y-4 animate-pulse">

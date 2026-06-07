@@ -6,7 +6,6 @@ const useCartStore = create((set, get) => ({
   total: 0,
   loading: false,
 
-  // ── Charger le panier depuis l'API ────────────────────────
   fetchCart: async () => {
     try {
       set({ loading: true });

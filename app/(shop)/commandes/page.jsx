@@ -21,7 +21,6 @@ export default function MesCommandesPage() {
   const [loading,   setLoading]   = useState(true);
 
    useEffect(() => {
-    // ⬅️ Attendre la fin de l'hydratation avant toute décision
     if (!_hydrated) return;
 
     if (!isAuthenticated) {

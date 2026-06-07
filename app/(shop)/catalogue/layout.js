@@ -1,4 +1,3 @@
-// app/(shop)/catalogue/layout.js — metadata catalogue
 export const metadata = {
   title:       'Catalogue — Bazar Guyane Marketplace',
   description: 'Découvrez des milliers de produits neufs, reconditionnés et d\'occasion sur Bazar Guyane, la marketplace de la Guyane.',

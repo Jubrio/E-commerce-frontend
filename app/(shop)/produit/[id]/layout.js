@@ -1,6 +1,3 @@
-// app/(shop)/produit/[id]/layout.js
-// Metadata dynamique pour le SEO des pages produit
-
 export async function generateMetadata({ params }) {
   try {
     const res  = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/produits/${params.id}`, { next: { revalidate: 3600 } });
@@ -30,7 +27,6 @@ export async function generateMetadata({ params }) {
         description: p.description?.slice(0, 155) || '',
         images:      image ? [image] : [],
       },
-      // Données structurées JSON-LD pour Google
       other: {
         'application/ld+json': JSON.stringify({
           '@context': 'https://schema.org',

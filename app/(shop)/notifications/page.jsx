@@ -10,7 +10,7 @@ const ICONES = {
   bienvenue:        '👋',
   nouvelle_commande:'📦',
   commande_expediee:'🚚',
-  commande_livree:  '✅',
+  commande_livree:  '✓',
   nouveau_avis:     '⭐',
   info:             'ℹ️',
   default:          '🔔',
@@ -24,7 +24,6 @@ export default function NotificationsPage() {
   const [loading,  setLoading]  = useState(true);
 
   useEffect(() => {
-    // ⬅️ Attendre la fin de l'hydratation avant toute décision
     if (!_hydrated) return;
 
     if (!isAuthenticated) {

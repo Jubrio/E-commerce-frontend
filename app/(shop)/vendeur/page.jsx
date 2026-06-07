@@ -16,7 +16,6 @@ export default function VendeurPage() {
   const [commissions, setCommissions] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  // ✅ useEffect – toujours appelé, mais peut s’arrêter tôt
   useEffect(() => {
     if (!_hydrated) return;
     if (!isAuthenticated) {
@@ -67,7 +66,6 @@ export default function VendeurPage() {
     setProduits(prev => prev.filter(p => p.id !== id));
   };
 
-  // ✅ Conditions d’affichage APRÈS tous les hooks
   if (!_hydrated) return <Skeleton />;
   if (loading) return <Skeleton />;
 

@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation';
 import useCartStore from '@/store/useCartStore';
 import useAuthStore from '@/store/useAuthStore';
 import { commandesAPI, adressesAPI, paiementsAPI } from '@/lib/api';
-import PhoneInput from '@/components/ui/PhoneInput'; // ← import du composant
+import PhoneInput from '@/components/ui/PhoneInput'; 
 
 const ETAPES = ['Livraison', 'Récapitulatif', 'Paiement'];
 const STORAGE_KEY = 'guyagod_commande';
@@ -12,7 +12,7 @@ const STORAGE_KEY = 'guyagod_commande';
 export default function CommandePage() {
   const router = useRouter();
   const { items, total, resetLocal, fetchCart } = useCartStore();
-  const { user, isAuthenticated, _hydrated } = useAuthStore(); // ← récupération de l'utilisateur
+  const { user, isAuthenticated, _hydrated } = useAuthStore(); 
 
   const [etape, setEtape] = useState(0);
   const [adresses, setAdresses] = useState([]);
@@ -24,12 +24,11 @@ export default function CommandePage() {
   const [form, setForm] = useState({
     adresse_id: '',
     adresse_livraison: '',
-    telephone: user?.telephone || '', // ← pré‑remplir avec le numéro de l'utilisateur
+    telephone: user?.telephone || '', 
     mode_paiement: 'stripe',
     notes_client: '',
   });
 
-  // Restauration depuis sessionStorage (une seule fois)
   useEffect(() => {
     if (typeof window === 'undefined' || restored) return;
     try {
@@ -43,7 +42,6 @@ export default function CommandePage() {
     setRestored(true);
   }, [restored]);
 
-  // Sauvegarde dans sessionStorage
   useEffect(() => {
     if (!restored) return;
     if (typeof window === 'undefined') return;
@@ -62,7 +60,6 @@ export default function CommandePage() {
     );
   }, [etape, form, restored]);
 
-  // Chargement du panier
   useEffect(() => {
     if (!_hydrated) return;
     if (!isAuthenticated) return;
@@ -76,7 +73,6 @@ export default function CommandePage() {
     loadCart();
   }, [_hydrated, isAuthenticated, items.length, fetchCart]);
 
-  // Chargement des adresses et redirections après panier prêt
   useEffect(() => {
     if (!_hydrated || !cartReady || !restored) return;
 
@@ -149,7 +145,6 @@ export default function CommandePage() {
     }
   };
 
-  // Skeletons pendant les chargements
   if (!_hydrated || !cartReady || !restored) {
     return (
       <div className="max-w-3xl mx-auto px-4 py-8">
@@ -270,8 +265,6 @@ export default function CommandePage() {
               }}
             />
           </div>
-
-          {/* Champ téléphone avec PhoneInput */}
           <div>
             <label className="block text-sm font-medium mb-1.5" style={{ color: 'var(--text)' }}>
               Téléphone de contact *

@@ -7,8 +7,6 @@ export default function CGUPage() {
       <Link href="/" className="text-sm hover:underline mb-4 inline-block" style={{ color: 'var(--primary)' }}>
         ← Retour à l’accueil
       </Link>
-
-      {/* Carte principale avec fond clair et ombre */}
       <div
         className="rounded-2xl p-8 shadow-md"
         style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)' }}

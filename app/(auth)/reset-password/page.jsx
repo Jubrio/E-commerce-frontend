@@ -105,7 +105,7 @@ function ResetPasswordFlow() {
         </p>
       </div>
 
-      {/* Étape 1 : demande d'email */}
+      {/* demande d'email */}
       {step === 'email' && (
         <form onSubmit={handleSendCode} className="space-y-4">
           <div>
@@ -139,7 +139,7 @@ function ResetPasswordFlow() {
         </form>
       )}
 
-      {/* Étape 2 : saisie du code et nouveau mot de passe */}
+      {/* saisie du code et nouveau mot de passe */}
       {step === 'code' && (
         <form onSubmit={handleResetPassword} className="space-y-4">
           <div>

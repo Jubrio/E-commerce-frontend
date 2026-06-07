@@ -17,7 +17,6 @@ export default function FavorisPage() {
   const [removing, setRemoving] = useState(null);
 
   useEffect(() => {
-    // ⬅️ Attendre la fin de l'hydratation avant toute décision
     if (!_hydrated) return;
 
     if (!isAuthenticated) {

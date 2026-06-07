@@ -24,7 +24,6 @@ export default function CommandeDetailPage() {
   const [loading,  setLoading]  = useState(true);
 
   useEffect(() => {
-    // ⬅️ Attendre la fin de l'hydratation avant toute décision
     if (!_hydrated) return;
 
     if (!isAuthenticated) {
@@ -46,8 +45,6 @@ export default function CommandeDetailPage() {
 
   return (
     <div className="max-w-3xl mx-auto px-4 py-8">
-
-      {/* Retour */}
       <Link
         href="/commandes"
         className="inline-flex items-center gap-1.5 text-sm mb-6 hover:underline"
@@ -86,7 +83,6 @@ export default function CommandeDetailPage() {
             Suivi de commande
           </h2>
           <div className="flex items-center justify-between relative">
-            {/* Barre de progression */}
             <div
               className="absolute top-3.5 left-0 h-0.5 transition-all duration-500"
               style={{
@@ -174,7 +170,6 @@ export default function CommandeDetailPage() {
           </h2>
         </div>
         {commande.items?.map(item => {
-          // Conversion sécurisée des nombres
           const prixUnitaire = typeof item.prix_unitaire === 'number'
             ? item.prix_unitaire
             : parseFloat(item.prix_unitaire) || 0;
@@ -215,8 +210,6 @@ export default function CommandeDetailPage() {
 
       {/* Deux colonnes : adresse + total */}
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-
-        {/* Adresse livraison */}
         <div
           className="rounded-xl p-4"
           style={{ backgroundColor: 'var(--bg-card)', border: '1px solid var(--border)' }}

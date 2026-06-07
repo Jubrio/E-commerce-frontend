@@ -205,7 +205,6 @@ export default function PhoneInput({
   required = false,
   className = '',
 }) {
-  // Extraire indicatif et numéro local
   const parsePhone = (fullNumber) => {
     if (!fullNumber) return { dial: '', local: '' };
     const matched = countries.find(c => fullNumber.startsWith(c.dial));
@@ -225,7 +224,6 @@ export default function PhoneInput({
   const wrapperRef = useRef(null);
   const searchRef = useRef(null);
 
-  // Synchronisation avec la prop `value`
   useEffect(() => {
     const { dial, local } = parsePhone(value);
     if (dial) {
@@ -235,7 +233,6 @@ export default function PhoneInput({
     setLocalNumber(local);
   }, [value]);
 
-  // Fermer le menu au clic extérieur
   useEffect(() => {
     const handleClickOutside = (e) => {
       if (wrapperRef.current && !wrapperRef.current.contains(e.target)) {
@@ -247,7 +244,6 @@ export default function PhoneInput({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, []);
 
-  // Focus sur la recherche à l’ouverture
   useEffect(() => {
     if (open && searchRef.current) setTimeout(() => searchRef.current?.focus(), 50);
   }, [open]);
@@ -273,7 +269,6 @@ export default function PhoneInput({
   };
 
   const borderColor = open || focused ? 'var(--primary)' : 'var(--border)';
-  // Largeur dynamique du préfixe (ajustement simple)
   const dialWidth = `${selectedCountry.dial.length * 12 + 8}px`;
 
   return (

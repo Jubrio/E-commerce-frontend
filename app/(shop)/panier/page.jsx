@@ -16,16 +16,13 @@ export default function PanierPage() {
   const [couponError,   setCouponError]   = useState('');
   const [couponLoading, setCouponLoading] = useState(false);
 
-  // Attendre que le store soit hydraté avant toute décision
   useEffect(() => {
     if (!_hydrated) return;
     if (isAuthenticated) fetchCart();
   }, [_hydrated, isAuthenticated, fetchCart]);
 
-  // Pendant l'hydratation, afficher un squelette
   if (!_hydrated) return <PanierSkeleton />;
 
-  // Non authentifié
   if (!isAuthenticated) {
     return (
       <div className="max-w-lg mx-auto px-4 py-20 text-center">
@@ -66,7 +63,6 @@ export default function PanierPage() {
     );
   }
 
-  // Calcul du total et réduction
   const totalNumber = typeof total === 'number' ? total : parseFloat(total) || 0;
   const totalAvecRemise = couponData
     ? (totalNumber - (couponData.reduction || 0)).toFixed(2)

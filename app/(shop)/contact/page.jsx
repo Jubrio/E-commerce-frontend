@@ -1,6 +1,7 @@
 'use client';
 import { useState } from 'react';
 import Link from 'next/link';
+import { Phone, Mail } from 'lucide-react';
 
 const API = process.env.NEXT_PUBLIC_API_URL;
 
@@ -48,14 +49,16 @@ export default function ContactPage() {
         <h1 className="text-2xl font-black mb-6" style={{ color: 'var(--text)' }}>Contactez-nous</h1>
 
         <div className="rounded-xl p-6 mb-6" style={{ backgroundColor: 'var(--bg-input)', border: '1px solid var(--border)' }}>
-          <p className="text-sm mb-2" style={{ color: 'var(--text)' }}>
-            📞 WhatsApp :{' '}
+          <p className="text-sm mb-2 flex items-center gap-2" style={{ color: 'var(--text)' }}>
+            <Phone size={15} style={{ color: 'var(--primary)' }} />
+            WhatsApp :{' '}
             <a href="https://wa.me/594694154108" target="_blank" rel="noopener noreferrer" className="hover:underline" style={{ color: 'var(--primary)' }}>
               06 94 15 41 08
             </a>
           </p>
-          <p className="text-sm" style={{ color: 'var(--text)' }}>
-            ✉️ Email :{' '}
+          <p className="text-sm flex items-center gap-2" style={{ color: 'var(--text)' }}>
+            <Mail size={15} style={{ color: 'var(--primary)' }} />
+            Email :{' '}
             <a href="mailto:support.bazarguyane@gmail.com" className="hover:underline" style={{ color: 'var(--primary)' }}>
               support.bazarguyane@gmail.com
             </a>
