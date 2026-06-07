@@ -26,7 +26,6 @@ export default function ModifierProduitPage() {
     etat: 'neuf', category_id: '', marque_id: '', actif: true,
   });
 
-  // ⬅️ Attendre l'hydratation avant toute décision
   useEffect(() => {
     if (!_hydrated) return;
 
@@ -184,15 +183,8 @@ export default function ModifierProduitPage() {
           <div className="grid grid-cols-2 gap-3">
             <div>
               <Label>SKU</Label>
-                <input
-    name="sku"
-    value={form.sku}
-    readOnly
-    disabled
-    className={`${inputClass} bg-gray-100 cursor-not-allowed`}
-    style={inputStyle}
-  />
-</div>
+                <input name="sku" value={form.sku} readOnly disabled className={`${inputClass} bg-gray-100 cursor-not-allowed`} style={inputStyle} />
+            </div>
             <div>
               <Label>État</Label>
               <select name="etat" value={form.etat} onChange={handleChange} className={inputClass} style={inputStyle}>
