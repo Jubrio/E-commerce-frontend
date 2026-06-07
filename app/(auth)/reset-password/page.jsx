@@ -7,7 +7,7 @@ const API = process.env.NEXT_PUBLIC_API_URL;
 
 function ResetPasswordFlow() {
   const router = useRouter();
-  const [step, setStep] = useState('email'); // 'email', 'code'
+  const [step, setStep] = useState('email'); 
   const [email, setEmail] = useState('');
   const [code, setCode] = useState('');
   const [password, setPassword] = useState('');
@@ -22,7 +22,6 @@ function ResetPasswordFlow() {
   const inputBase = "w-full h-11 px-4 rounded-lg border text-sm focus:outline-none transition-colors";
   const inputStyle = { backgroundColor: 'var(--bg-input)', color: 'var(--text)', borderColor: 'var(--border)' };
 
-  // Demander l'envoi du code
   const handleSendCode = async (e) => {
     e.preventDefault();
     setError('');
@@ -53,7 +52,6 @@ function ResetPasswordFlow() {
     }
   };
 
-  // Réinitialiser avec code + nouveau mot de passe
   const handleResetPassword = async (e) => {
     e.preventDefault();
     setError('');
@@ -96,14 +94,14 @@ function ResetPasswordFlow() {
     <>
       <div className="mb-8 text-center">
         <div className="rounded-2xl flex items-center justify-center font-black text-white text-xl mx-auto mb-4"
-        ><img src="/Logo.png" alt="Bazar Guyane" className="h-12 w-auto rounded-lg" /></div>
+        ><img src="/logo.png" alt="Bazar Guyane" className="h-12 w-auto rounded-lg" /></div>
         <h1 className="text-2xl font-black" style={{ color: 'var(--text)' }}>
           {step === 'email' ? 'Mot de passe oublié' : 'Code de vérification'}
         </h1>
         <p className="mt-1 text-sm" style={{ color: 'var(--text-muted)' }}>
           {step === 'email'
             ? 'Entrez votre email pour recevoir un code'
-            : `Un code à 6 chiffres a été envoyé à ${email}`}
+            : `Un code à 6 chiffres a été envoyé à ${email} <br /> Regardez dans les spams si l'e-mail n'est pas dans la boîte principale`}
         </p>
       </div>
 

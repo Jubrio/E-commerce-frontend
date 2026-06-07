@@ -1,6 +1,5 @@
 'use client';
-// app/(auth)/auth/google/success/page.jsx
-// Connexion Google – charge le profil avant redirection pour éviter le flash "déconnecté"
+
 
 import { useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
