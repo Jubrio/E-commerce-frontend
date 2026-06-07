@@ -101,7 +101,7 @@ function ResetPasswordFlow() {
         <p className="mt-1 text-sm" style={{ color: 'var(--text-muted)' }}>
           {step === 'email'
             ? 'Entrez votre email pour recevoir un code'
-            : `Un code à 6 chiffres a été envoyé à ${email} <br /> Regardez dans les spams si l'e-mail n'est pas dans la boîte principale`}
+            : `Un code à 6 chiffres a été envoyé à ${email} Regardez dans les spams si l'e-mail n'est pas dans la boîte principale`}
         </p>
       </div>
 
