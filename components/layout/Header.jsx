@@ -287,7 +287,7 @@ export default function Header() {
               );
             })}
             <Link href="/catalogue?promo=1" className="whitespace-nowrap text-xs font-medium px-3 py-1.5 rounded-lg hover:opacity-80"
-              style={{ color: 'var(--primary)' }}>Promos</Link>
+              style={{ color: 'var(--primary)' }}>🔥Promos</Link>
           </div>
         </div>
       </div>
