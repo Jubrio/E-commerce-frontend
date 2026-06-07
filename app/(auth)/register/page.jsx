@@ -123,7 +123,7 @@ export default function RegisterPage() {
         <div className="mb-8 text-center">
           <h1 className="text-2xl font-black" style={{ color: 'var(--text)' }}>Vérifiez votre email</h1>
           <p className="mt-1 text-sm" style={{ color: 'var(--text-muted)' }}>
-            Un code à 6 chiffres a été envoyé à <strong>{form.email} <br /> Regardez dans les spams si l'e-mail n'est pas dans la boîte principale</strong>
+            Un code à 6 chiffres a été envoyé à <strong>{form.email} <br /> </strong>Regardez dans les spams si l'e-mail n'est pas dans la boîte principale
           </p>
         </div>
         <form onSubmit={handleVerify} className="space-y-4">
