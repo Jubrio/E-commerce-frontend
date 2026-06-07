@@ -7,7 +7,7 @@ import ProductCard from '@/components/produit/ProductCard';
 import { produitsAPI, categoriesAPI } from '@/lib/api';
 import { slugify } from '@/lib/slugify';
 
-// ── Variants d'animation ──────────────────────────────────────
+//------------ Variants d'animation --------------------
 const fromLeft = {
   hidden: { opacity: 0, x: -60 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.6, ease: 'easeOut' } },
@@ -32,8 +32,6 @@ const staggerItem = {
   hidden: { opacity: 0, x: -30 },
   visible: { opacity: 1, x: 0, transition: { duration: 0.4, ease: 'easeOut' } },
 };
-
-// ──────────────────────────────────────────────────────────────
 
 export default function HomePage() {
   const [produits,     setProduits]     = useState([]);
@@ -66,7 +64,7 @@ export default function HomePage() {
 
   return (
     <div>
-      {/* ── Hero ── */}
+      {/* ── Section Hero ── */}
       <section
         className="py-16 px-4 text-center overflow-hidden"
         style={{ background: 'linear-gradient(135deg, var(--primary-light) 0%, var(--bg) 100%)' }}
@@ -127,7 +125,7 @@ export default function HomePage() {
         </motion.div>
       </section>
 
-      {/* ── Catégories populaires ── */}
+      {/* ── Section Catégories Populaires ── */}
       {categories.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 py-10 overflow-hidden">
           <motion.h2
@@ -169,7 +167,7 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── Carrousel produits vedette ── */}
+      {/* ── Section Carrousel produits Vedette ── */}
       {slides.length > 0 && (
         <section className="max-w-7xl mx-auto px-4 py-12 overflow-hidden">
           <motion.h2
@@ -262,7 +260,7 @@ export default function HomePage() {
         </section>
       )}
 
-      {/* ── Produits récents ── */}
+      {/* ── Section Produits Récents ── */}
       <section className="max-w-7xl mx-auto px-4 py-6 overflow-hidden">
         <motion.div
           className="flex items-center justify-between mb-5"
@@ -321,7 +319,7 @@ export default function HomePage() {
         )}
       </section>
 
-      {/* ── Avantages ── */}
+      {/* ── Section Avantages ── */}
       <section className="max-w-7xl mx-auto px-4 py-10 overflow-hidden">
         <motion.div
           className="grid grid-cols-2 md:grid-cols-4 gap-4"
@@ -362,7 +360,7 @@ export default function HomePage() {
             viewport={{ once: true }}
           >
             <div className="flex justify-center md:justify-start">
-              <img src="/logo.png" alt="Bazar de Guyane" className="max-w-xs h-auto" />
+              <img src="/logo.png" alt="Bazar de Guyane" className="max-w-xs h-auto rounded-xl shadow-lg" />
             </div>
             <div>
               <h3 className="text-xl font-black mb-3" style={{ color: 'var(--text)' }}>

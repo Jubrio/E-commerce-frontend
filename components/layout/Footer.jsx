@@ -49,7 +49,7 @@ export default function Footer() {
           </ul>
         </div>
 
-        {/* Réseaux sociaux (remplace Vendre) */}
+        {/* Réseaux sociaux */}
         <div>
           <h4 className="text-xs font-bold uppercase tracking-wider mb-3" style={{ color: 'var(--text-muted)' }}>
             Réseaux sociaux
@@ -117,7 +117,6 @@ export default function Footer() {
   );
 }
 
-// Icônes SVG (simples, style "outline")
 const FacebookIcon = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />

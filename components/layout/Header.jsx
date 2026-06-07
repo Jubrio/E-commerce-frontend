@@ -7,6 +7,11 @@ import useCartStore from '@/store/useCartStore';
 import useThemeStore from '@/store/useThemeStore';
 import NotificationDropdown from '@/components/notifications/NotificationDropdown';
 import { slugify } from '@/lib/slugify';
+import {
+  User, Package, Heart, MessageCircle, Bell,
+  Settings, Store, LogOut, Search, Moon, Sun,
+  ShoppingCart, ChevronDown, MessageSquare,
+} from 'lucide-react';
 
 const API = process.env.NEXT_PUBLIC_API_URL;
 const auth = () => ({ Authorization: `Bearer ${localStorage.getItem('guyagod_token')}` });
@@ -90,15 +95,24 @@ export default function Header() {
   const isCatalogueActive = pathname === '/catalogue' && !searchParams.get('category');
   const isCategoryActive = (catSlug) => searchParams.get('category') === slugify(catSlug);
 
+  const menuItems = [
+    { href: '/profil',        label: 'Mon profil',      icon: <User size={15} /> },
+    { href: '/commandes',     label: 'Mes commandes',   icon: <Package size={15} /> },
+    { href: '/favoris',       label: 'Mes favoris',     icon: <Heart size={15} /> },
+    { href: '/messages',      label: `Messages${nbMsg > 0 ? ` (${nbMsg})` : ''}`, icon: <MessageCircle size={15} /> },
+    { href: '/notifications', label: 'Notifications',   icon: <Bell size={15} /> },
+    ...(user?.role_id === 1 ? [{ href: '/admin',   label: 'Administration', icon: <Settings size={15} /> }] : []),
+    ...(user?.role_id === 2 ? [{ href: '/vendeur', label: 'Espace vendeur', icon: <Store size={15} /> }] : []),
+  ];
+
   return (
     <header
       className={`sticky top-0 z-50 ${scrolled ? 'shadow-lg-theme' : ''}`}
       style={{ backgroundColor: 'var(--bg-header)', borderBottom: '1px solid var(--border)' }}
     >
-      {/* Barre principale */}
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-3">
         <Link href="/" className="flex-shrink-0 flex items-center gap-2">
-          <img src="/logo.png" alt="Bazar Guyane" className="h-8 w-auto rounded-lg" />
+          <img src="/Logo.png" alt="Bazar Guyane" className="h-8 w-auto rounded-lg" />
           <span className="font-black text-xl hidden sm:block" style={{ color: 'var(--text)' }}>Bazar Guyane</span>
         </Link>
 
@@ -117,7 +131,7 @@ export default function Header() {
             <button type="submit"
               className="absolute right-0 top-0 h-10 w-12 flex items-center justify-center rounded-r-lg text-white"
               style={{ backgroundColor: 'var(--primary)' }}>
-              <SearchIcon />
+              <Search size={16} />
             </button>
           </div>
         </form>
@@ -126,16 +140,16 @@ export default function Header() {
         <div className="flex items-center gap-1 flex-shrink-0">
           <button onClick={() => { setSearchOpen(v => !v); setTimeout(() => mobileSearchRef.current?.focus(), 150); }}
             className="md:hidden p-2 rounded-lg hover:opacity-80" style={{ color: 'var(--text-muted)' }}>
-            <SearchIcon />
+            <Search size={16} />
           </button>
 
           <button onClick={toggle} className="p-2 rounded-lg hover:opacity-80" style={{ color: 'var(--text-muted)' }}>
-            {isDark ? <SunIcon /> : <MoonIcon />}
+            {isDark ? <Sun size={18} /> : <Moon size={18} />}
           </button>
 
           {isAuthenticated && (
             <Link href="/messages" className="relative p-2 rounded-lg hover:opacity-80" style={{ color: 'var(--text)' }}>
-              <MessageIcon />
+              <MessageSquare size={22} />
               {nbMsg > 0 && (
                 <span className="absolute -top-0.5 -right-0.5 min-w-4 h-4 text-xs font-bold rounded-full flex items-center justify-center text-white px-0.5"
                   style={{ backgroundColor: 'var(--primary)', fontSize: '10px' }}>
@@ -148,7 +162,7 @@ export default function Header() {
           {isAuthenticated && <NotificationDropdown />}
 
           <Link href="/panier" className="relative p-2 rounded-lg hover:opacity-80" style={{ color: 'var(--text)' }}>
-            <CartIcon />
+            <ShoppingCart size={22} />
             {itemCount > 0 && (
               <span className="absolute -top-1 -right-1 w-5 h-5 text-xs font-bold rounded-full flex items-center justify-center text-white"
                 style={{ backgroundColor: 'var(--primary)' }}>
@@ -165,7 +179,7 @@ export default function Header() {
                   {user?.photo_profil ? <img src={user.photo_profil} alt="" className="w-full h-full object-cover" /> : user?.nom?.[0]?.toUpperCase()}
                 </div>
                 <span className="hidden md:block text-sm font-medium max-w-20 truncate" style={{ color: 'var(--text)' }}>{user?.nom}</span>
-                <ChevronIcon />
+                <ChevronDown size={14} />
               </button>
 
               {menuOpen && (
@@ -185,26 +199,20 @@ export default function Header() {
                         </div>
                       </div>
                     </div>
-                    {[
-                      { href: '/profil', label: '👤 Mon profil' },
-                      { href: '/commandes', label: '📦 Mes commandes' },
-                      { href: '/favoris', label: '❤️ Mes favoris' },
-                      { href: '/messages', label: `💬 Messages${nbMsg > 0 ? ` (${nbMsg})` : ''}` },
-                      { href: '/notifications', label: '🔔 Notifications' },
-                      ...(user?.role_id === 1 ? [{ href: '/admin', label: '⚙️ Administration' }] : []),
-                      ...(user?.role_id === 2 ? [{ href: '/vendeur', label: '🏪 Espace vendeur' }] : []),
-                    ].map(item => (
+                    {menuItems.map(item => (
                       <Link key={item.href} href={item.href} onClick={() => setMenuOpen(false)}
-                        className="block px-4 py-2.5 text-sm hover:opacity-80"
+                        className="flex items-center gap-3 px-4 py-2.5 text-sm hover:opacity-80"
                         style={{ color: 'var(--text)', borderBottom: '1px solid var(--border)' }}>
+                        <span style={{ color: 'var(--text-muted)' }}>{item.icon}</span>
                         {item.label}
                       </Link>
                     ))}
                     <button
                       onClick={handleLogoutClick}
-                      className="w-full text-left px-4 py-3 text-sm font-semibold"
+                      className="w-full flex items-center gap-3 px-4 py-3 text-sm font-semibold"
                       style={{ color: 'var(--primary)' }}
                     >
+                      <LogOut size={15} />
                       Déconnexion
                     </button>
                   </div>
@@ -222,7 +230,6 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Recherche mobile */}
       {searchOpen && (
         <div className="md:hidden px-4 pb-3" style={{ borderBottom: '1px solid var(--border)' }}>
           <form onSubmit={e => { e.preventDefault(); doSearch(); }} className="relative">
@@ -231,13 +238,12 @@ export default function Header() {
               style={{ backgroundColor: 'var(--bg-input)', color: 'var(--text)', borderColor: 'var(--primary)', fontSize: '16px' }} autoFocus />
             <button type="submit" className="absolute right-0 top-0 h-12 w-14 flex items-center justify-center rounded-r-xl text-white"
               style={{ backgroundColor: 'var(--primary)' }}>
-              <SearchIcon />
+              <Search size={16} />
             </button>
           </form>
         </div>
       )}
 
-      {/* Navigation catégories avec SLUGS */}
       <div className="border-t" style={{ borderColor: 'var(--border)', backgroundColor: 'var(--bg-header)' }}>
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex flex-wrap items-center gap-1 py-1">
@@ -257,10 +263,7 @@ export default function Header() {
                     className="whitespace-nowrap text-xs font-medium px-3 py-1.5 rounded-lg hover:opacity-80 flex items-center gap-1"
                     style={{ color: isActive ? 'var(--primary)' : 'var(--text-muted)' }}>
                     {cat.nom}
-                    {hasKids && <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"
-                      style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }}>
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>}
+                    {hasKids && <ChevronDown size={10} style={{ transform: isOpen ? 'rotate(180deg)' : 'rotate(0)', transition: 'transform 0.2s' }} />}
                   </button>
                   {isOpen && hasKids && (
                     <>
@@ -284,12 +287,11 @@ export default function Header() {
               );
             })}
             <Link href="/catalogue?promo=1" className="whitespace-nowrap text-xs font-medium px-3 py-1.5 rounded-lg hover:opacity-80"
-              style={{ color: 'var(--primary)' }}>🔥 Promos</Link>
+              style={{ color: 'var(--primary)' }}>Promos</Link>
           </div>
         </div>
       </div>
 
-      {/* Modale de confirmation */}
       {showLogoutConfirm && (
         <>
           <div className="fixed inset-0 z-50 bg-black/50" onClick={cancelLogout} />
@@ -311,11 +313,3 @@ export default function Header() {
     </header>
   );
 }
-
-// Icônes (inchangées)
-const SearchIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>;
-const CartIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>;
-const MoonIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>;
-const SunIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>;
-const ChevronIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="6 9 12 15 18 9"/></svg>;
-const MessageIcon = () => <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>;

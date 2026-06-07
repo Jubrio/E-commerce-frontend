@@ -36,12 +36,10 @@ function AdminContent() {
   const [stats, setStats] = useState(null);
   const [loading, setLoading] = useState(true);
 
-  // Filtres pour les commandes
   const [orderStatusFilter, setOrderStatusFilter] = useState('');
   const [orderDateStart, setOrderDateStart] = useState('');
   const [orderDateEnd, setOrderDateEnd] = useState('');
 
-  // Filtre recherche pour les produits
   const [productSearchQuery, setProductSearchQuery] = useState('');
 
   const [newCoupon, setNewCoupon] = useState({
@@ -166,7 +164,6 @@ function AdminContent() {
     }
   };
 
-  // Filtrage des commandes
   const filteredCommandes = commandes.filter(c => {
     if (orderStatusFilter && c.statut !== orderStatusFilter) return false;
     if (orderDateStart) {
@@ -180,7 +177,6 @@ function AdminContent() {
     return true;
   });
 
-  // Filtrage des produits par recherche (nom, SKU, vendeur)
   const filteredProduits = produits.filter(p => {
     if (!productSearchQuery.trim()) return true;
     const q = productSearchQuery.toLowerCase();
