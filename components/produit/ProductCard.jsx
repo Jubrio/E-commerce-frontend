@@ -1,5 +1,5 @@
 'use client';
-// components/produit/ProductCard.jsx — FIX cœur avec userId
+
 import Link            from 'next/link';
 import useCartStore    from '@/store/useCartStore';
 import useAuthStore    from '@/store/useAuthStore';
@@ -13,7 +13,6 @@ export default function ProductCard({ produit }) {
   const [adding, setAdding]           = useState(false);
 
   const userId = user?.id;
-  // FIX : on passe userId pour que isFavori regarde le bon user
   const liked  = isAuthenticated && userId ? isFavori(produit.id, userId) : false;
 
   const prix  = Number(produit.prix)  || 0;
@@ -34,7 +33,6 @@ export default function ProductCard({ produit }) {
   const handleFavori = async (e) => {
     e.preventDefault();
     if (!isAuthenticated || !userId) return;
-    // FIX : passer userId
     await toggleFavori(produit.id, userId);
   };
 
@@ -75,7 +73,6 @@ export default function ProductCard({ produit }) {
           </span>
         )}
 
-        {/* FIX : visible si liké, sinon au hover. Change réellement selon l'état */}
         <button
           onClick={handleFavori}
           className={`absolute bottom-2 right-2 w-8 h-8 rounded-full flex items-center justify-center transition-all

@@ -112,7 +112,7 @@ export default function Header() {
     >
       <div className="max-w-7xl mx-auto px-4 h-16 flex items-center gap-3">
         <Link href="/" className="flex-shrink-0 flex items-center gap-2">
-          <img src="/Logo.png" alt="Bazar Guyane" className="h-8 w-auto rounded-lg" />
+          <img src="/logo.png" alt="Bazar Guyane" className="h-8 w-auto rounded-lg" />
           <span className="font-black text-xl hidden sm:block" style={{ color: 'var(--text)' }}>Bazar Guyane</span>
         </Link>
 
