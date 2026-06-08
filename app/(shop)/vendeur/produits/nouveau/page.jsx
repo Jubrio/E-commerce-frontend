@@ -205,15 +205,17 @@ export default function NouveauProduitPage() {
         <Section title="Caractéristiques techniques">
           <div className="space-y-2">
             {specs.map((s, i) => (
-              <div key={i} className="flex gap-2 items-center">
-                <input placeholder="Clé (ex: RAM)" value={s.cle} onChange={e => handleSpecChange(i, 'cle', e.target.value)} className="flex-1 h-9 px-3 rounded-lg border text-sm focus:outline-none" style={inputStyle} {...focus} />
-                <input placeholder="Valeur (ex: 8 Go)" value={s.valeur} onChange={e => handleSpecChange(i, 'valeur', e.target.value)} className="flex-1 h-9 px-3 rounded-lg border text-sm focus:outline-none" style={inputStyle} {...focus} />
-                {specs.length > 1 && <button type="button" onClick={() => removeSpec(i)} className="w-9 h-9 rounded-lg text-sm flex items-center justify-center hover:opacity-70" style={{ color: '#dc2626', backgroundColor: '#fee2e2', border: '1px solid #fecaca' }}>✕</button>}
-              </div>
-            ))}
-          </div>
-          <button type="button" onClick={addSpec} className="text-sm font-medium hover:underline mt-1" style={{ color: 'var(--primary)' }}>+ Ajouter une caractéristique</button>
-        </Section>
+              <div key={i} className="flex flex-col sm:flex-row gap-2">
+              <input placeholder="Clé (ex: RAM)" value={s.cle} onChange={e => handleSpecChange(i, 'cle', e.target.value)} className="flex-1 h-9 px-3 rounded-lg border text-sm focus:outline-none" style={inputStyle} {...focus} />
+              <input placeholder="Valeur (ex: 8 Go)" value={s.valeur} onChange={e => handleSpecChange(i, 'valeur', e.target.value)} className="flex-1 h-9 px-3 rounded-lg border text-sm focus:outline-none" style={inputStyle} {...focus} />
+              {specs.length > 1 && (
+                <button type="button" onClick={() => removeSpec(i)} className="h-9 px-3 rounded-lg text-sm flex items-center justify-center hover:opacity-70 sm:w-9 sm:px-0" style={{ color: '#dc2626', backgroundColor: '#fee2e2', border: '1px solid #fecaca' }}>✕</button>
+              )}
+            </div>
+          ))}
+        </div>
+        <button type="button" onClick={addSpec} className="text-sm font-medium hover:underline mt-1" style={{ color: 'var(--primary)' }}>+ Ajouter une caractéristique</button>
+      </Section>
 
         <div className="flex gap-3">
           <button type="button" onClick={() => router.back()} className="px-6 h-12 rounded-xl font-semibold border text-sm hover:opacity-70" style={{ color: 'var(--text)', borderColor: 'var(--border)' }}>Annuler</button>
